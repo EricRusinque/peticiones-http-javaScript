@@ -36,6 +36,15 @@ export const BreackingBadApp = async( element ) => {
         element.replaceChildren( quoteLabel, authLabel, nextQuoteButton);
     }
 
+
+    // Añador listener
+    nextQuoteButton.addEventListener('click', async() => {
+        element.innerHTML = 'Loading...';
+        const quote = await fetchQuote();
+        renderQuote( quote )
+
+    })
+
     fetchQuote()
         .then( renderQuote)
 
