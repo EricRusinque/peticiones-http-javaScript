@@ -8,8 +8,7 @@ const fetchQuote = async() => {
     const resp = await fetch('https://api.breakingbadquotes.xyz/v1/quotes');
     const data = await resp.json();
 
-    console.log(data[0])
-    return data;
+    return data[0];
 
 }
 
@@ -23,9 +22,22 @@ export const BreackingBadApp = async( element ) => {
     document.querySelector('#app-title').innerHTML = 'Breakingbad App';
     element.innerHTML = 'Loading...';
 
-    const quote = await fetchQuote();
+    // await fetchQuote();
 
-    element.innerHTML = 'tenemos data'
+    const quoteLabel = document.createElement('blockquote');
+    const authLabel = document.createElement('h3');
+    const nextQuoteButton = document.createElement('button');
+    nextQuoteButton.innerText = 'Next Quote';
+
+    const renderQuote = ( data ) => {
+
+        quoteLabel.innerHTML = data.quote;
+        authLabel.innerHTML = data.author
+        element.replaceChildren( quoteLabel, authLabel, nextQuoteButton);
+    }
+
+    fetchQuote()
+        .then( renderQuote)
 
     
 }
